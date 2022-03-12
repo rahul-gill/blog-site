@@ -1,0 +1,21 @@
+@import "colors";
+
+.theme-light {
+  --primary-color: var(--primary-color-light);
+  --secondary-color: var(--secondary-color-light);
+  --tertiary-color: var(--tertiary-color-light);
+  --accent-color: var(--accent-color-light);
+  --heading-color: var(--heading-color-light);
+  --text-color: var(--text-color-light);
+  --background-without-opacity: var(--background-without-opacity-light);
+}
+
+.theme-dark {
+  --primary-color: var(--primary-color-dark);
+  --secondary-color: var(--secondary-color-dark);
+  --tertiary-color: var(--tertiary-color-dark);
+  --accent-color: var(--accent-color-dark);
+  --heading-color: var(--heading-color-dark);
+  --text-color: var(--text-color-dark);
+  --background-without-opacity: var(--background-without-opacity-dark);
+}
