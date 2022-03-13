@@ -4,8 +4,11 @@
 	import SideBar from "$lib/components/SideBar.svelte";
 	import Socials from "$lib/components/Socials.svelte";
 	import {onMount} from "svelte";
+	import renderMathInElement from "katex/contrib/auto-render";
+	import mermaid from "mermaid";
+	// import theme from "$lib/assets/ts/config.js";
 
-	let topScroll, scrollFunction, topFunction;
+	let topScroll, scrollFunction, topFunction, initializeMermaid, mounted = false;
 
 
 	onMount(() => {
@@ -21,6 +24,22 @@
 			window.scrollTo({top: 0, behavior: 'smooth'});
 		}
 		window.onscroll = function () { scrollFunction() };
+		renderMathInElement(document.body, {
+			// customised options
+			// • auto-render specific keys, e.g.:
+			delimiters: [
+				{left: '$$', right: '$$', display: true},
+				{left: '$', right: '$', display: false},
+				{left: '\\[', right: '\\]', display: true},
+				{left: '\\(', right: '\\)', display: false}
+			],
+			throwOnError : true
+		});
+		initializeMermaid = () => {
+			mermaid.initialize({ startOnLoad: true, theme:'forest'});
+		}
+		initializeMermaid()
+		mounted = true
 	})
 </script>
 

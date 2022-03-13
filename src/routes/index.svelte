@@ -2,16 +2,21 @@
 	export const prerender = true;
 </script>
 
-<script lang="ts">
+
+<script>
+
 	import Counter from '$lib/Counter.svelte';
 	import theme from '$lib/assets/ts/config.ts';
 	import { onMount } from 'svelte';
+	import SvelteMarkdown from "svelte-markdown";
+	import mermaid from "mermaid";
 
 	let mounted = false;
-	let themeValue: string;
+	let themeValue;
 
 	onMount(() => {
 		mounted = true
+		mermaid.initialize({ startOnLoad: true, theme:'forest'});
 	});
 
 
@@ -25,9 +30,56 @@
 	});
 
 	function handleThemeChange(){
-		if(themeValue == "theme-light") theme.set("theme-dark")
-		else theme.set("theme-light")
+		if(themeValue === "theme-light") {
+			theme.set("theme-dark")
+		}
+		else {
+			theme.set("theme-light")
+		}
 	}
+
+	export let markdown = `
+  # This is a header
+
+This is a paragraph.
+$$x^2=4$$
+
+\`\`\`mermaid
+  graph TD
+        A[Client] --> B[Load Balancer]
+        B --> C[Server01]
+        B --> D[Server02]
+\`\`\`
+
+* This is a list
+* With two items
+  1. And a sublist
+  2. That is ordered
+    * With another
+    * Sublist inside
+
+| And this is | A table |
+|-------------|---------|
+| With two    | columns |`
+	let generateMermaidDivs = () => {
+		//TODO: optimization
+		let index = markdown.indexOf("```mermaid")
+		while (index !== -1){
+			let laterString = markdown.substring(index + 10, markdown.length)
+			let endingTripleD = laterString.indexOf("```")
+			markdown =
+					markdown.substring(0, index) +
+					`<div class="mermaid">` +
+					laterString.substring(0, endingTripleD) +
+					"</div>" +
+					laterString.substring(endingTripleD + 3, laterString.length)
+			index = markdown.indexOf("```mermaid")
+		}
+	}
+	generateMermaidDivs()
+
+
+
 </script>
 
 <svelte:head>
@@ -54,13 +106,9 @@
 		try editing <strong>src/routes/index.svelte</strong>
 	</h2>
 
-	{#each Array.from({length: 10}, (_, i) => i + 1) as i}
-	<a style="padding: 50px; margin: 50px; background: #3e3e3e" >
-		afsfaefaon asfisa f asjkfasbf sakfasbjk as kfajksf aj askjd as
-		afsfaefaon asfisa f asjkfasbf sakfasbjk as kfajksf aj askjd as
+	<SvelteMarkdown source={markdown} />
 
-	</a>
-	{/each}
+
 
 	<Counter />
 </section>
