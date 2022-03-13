@@ -21,7 +21,8 @@
 </script>
 
 <div class="social">
-    <a href={siteUrl + "/search"} class="search-bar">
+    <!--TODO: search url-->
+    <a href={siteUrl + ""} class="search-bar">
         <i class="fa fa-sm fa-search"></i>
     </a>
     <div class="social-links-bar">

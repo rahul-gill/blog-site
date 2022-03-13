@@ -1,20 +1,9 @@
-<script context="module">
-    import Viewport from 'svelte-viewport-info';
-</script>
-
-
-
-<svelte:body
-    on:viewportchanged={() => {
-        if(Viewport.Width < 960) expanded = false;
-    }}
-    on:orientationchangeend={() => {
-        if(Viewport.Width < 960) expanded = false;
-    }}
-/>
-
 <script lang="ts">
     import { slide } from 'svelte/transition';
+    import {onMount} from "svelte";
+
+
+
 
     export let title = "Blogs";
     export let navItemsList = [
