@@ -38,6 +38,7 @@
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
     "fontawesome-svelte": "^2.0.1",
-    "sass": "^1.49.9"
+    "sass": "^1.49.9",
+    "svelte-viewport-info": "^1.0.0"
   }
 }

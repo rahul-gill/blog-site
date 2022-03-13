@@ -1,4 +1,21 @@
+<script context="module">
+    import Viewport from 'svelte-viewport-info';
+</script>
+
+
+
+<svelte:body
+    on:viewportchanged={() => {
+        if(Viewport.Width < 960) expanded = false;
+    }}
+    on:orientationchangeend={() => {
+        if(Viewport.Width < 960) expanded = false;
+    }}
+/>
+
 <script lang="ts">
+    import { slide } from 'svelte/transition';
+
     export let title = "Blogs";
     export let navItemsList = [
         {
@@ -7,6 +24,10 @@
         }
     ];
     export let selectedIndex = 0;
+    let expanded = true;
+    let changeExpandedState = () =>{
+        expanded = !expanded;
+    }
 </script>
 
 <nav class="navbar navlinks">
@@ -16,12 +37,13 @@
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="true"
-            aria-label="Toggle navigation">
+            aria-label="Toggle navigation"
+            on:click={changeExpandedState}>
         <span>{title}</span>
         <i style="float: right;" class="fa fa-bars menu-icon" aria-hidden="true"></i>
     </button>
-
-    <div class="navbar-collapse show" id="navbarSupportedContent">
+    {#if expanded}
+    <div class="navbar-collapse show " id="navbarSupportedContent" transition:slide|local>
         <div class="m-1 mt-2">
             <ul style="padding-top: 0.1em;">
                 {#each navItemsList as {text, href}, i}
@@ -37,9 +59,30 @@
 
         </div>
     </div>
+    {/if}
 </nav>
 
 <style>
+    .navbar-collapse {
+        opacity: 1;
+        transition: opacity linear 1s, width linear 1s;
+    }
+
+    .navbar-collapse.collapsed {
+        width: 0;
+        opacity: 0;
+    }
+
+    .navbar-collapse .sub-section {
+        padding: 10px;
+        border-width: 2px;
+        transition: padding linear 1s, border-width linear 1s;
+    }
+
+    .navbar-collapse .sub-section {
+        padding: 10px 0;
+        border-width: 2px 0;
+    }
 
     .navbar-toggler {
         /*TODO: collapsing*/
