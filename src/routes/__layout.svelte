@@ -1,45 +1,44 @@
-<script lang="ts">
-	import Header from '$lib/header/Header.svelte';
+<script>
 	import '$lib/assets/scss/global.scss'
+	import '$lib/assets/scss/responsive.scss'
+	import SideBar from "$lib/components/SideBar.svelte";
+	import Socials from "$lib/components/Socials.svelte";
+	import {onMount} from "svelte";
+
+	let topScroll, scrollFunction, topFunction;
+
+
+	onMount(() => {
+		topScroll = document.getElementById("top");
+		scrollFunction = () => {
+			if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+				topScroll.style.display = "block";
+			} else {
+				topScroll.style.display = "none";
+			}
+		};
+		topFunction = () => {
+			window.scrollTo({top: 0, behavior: 'smooth'});
+		}
+		window.onscroll = function () { scrollFunction() };
+	})
 </script>
 
-<Header />
 
-<main>
-	<slot />
-</main>
+<SideBar/>
+
+
+<div id="content" class="container">
+	<section id="main_content">
+		<main>
+			<slot />
+		</main>
+	</section>
+</div>
+
+
+<button on:click={topFunction} class="fa fa-arrow-up" id="top" title="Go to top"></button>
 
 <footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	<Socials/>
 </footer>
-
-<style>
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 1024px;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 40px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 40px 0;
-		}
-	}
-</style>

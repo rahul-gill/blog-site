@@ -8,6 +8,15 @@
   --heading-color: var(--heading-color-light);
   --text-color: var(--text-color-light);
   --background-without-opacity: var(--background-without-opacity-light);
+
+  --some-to-be-decided-color: var(--some-to-be-decided-color-light);
+
+  --header-background: var(--silver-chalice);
+  --body-background: var(--background-color-light);
+  --body-foreground: var(--text-color);
+  --blockquote-color: var(--silver-chalice);
+  --blockquote-border: var(--dove-grey);
+  --selected-nav-item-color: var(--bright-yellowish);
 }
 
 .theme-dark {
@@ -18,4 +27,17 @@
   --heading-color: var(--heading-color-dark);
   --text-color: var(--text-color-dark);
   --background-without-opacity: var(--background-without-opacity-dark);
+
+
+  --selected-nav-item-color: var(--bright-yellowish);
+
+  --header-background: black;
+
+  --body-background: var(--background-color-dark);
+  --body-foreground: var(--text-color);
+  --blockquote-color: var(--dove-grey);
+  --blockquote-border: var(--silver-chalice);
+
+
+  --some-to-be-decided-color: var(--some-to-be-decided-color-dark);
 }

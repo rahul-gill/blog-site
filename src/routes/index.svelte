@@ -4,18 +4,22 @@
 
 <script lang="ts">
 	import Counter from '$lib/Counter.svelte';
-	import theme from '$lib/assets/ts/config.ts'
+	import theme from '$lib/assets/ts/config.ts';
+	import { onMount } from 'svelte';
 
-
+	let mounted = false;
 	let themeValue: string;
+
+	onMount(() => {
+		mounted = true
+	});
+
+
 
 	theme.subscribe(value => {
 		console.log("theme:",value);
-		try {
+		if(mounted) {
 			document.body.classList.replace(themeValue, value);
-		}
-		catch (e) {
-			console.log("Error : ",e)
 		}
 		themeValue = value;
 	});
@@ -49,6 +53,14 @@
 	<h2>
 		try editing <strong>src/routes/index.svelte</strong>
 	</h2>
+
+	{#each Array.from({length: 10}, (_, i) => i + 1) as i}
+	<a style="padding: 50px; margin: 50px; background: #3e3e3e" >
+		afsfaefaon asfisa f asjkfasbf sakfasbjk as kfajksf aj askjd as
+		afsfaefaon asfisa f asjkfasbf sakfasbjk as kfajksf aj askjd as
+
+	</a>
+	{/each}
 
 	<Counter />
 </section>
